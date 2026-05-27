@@ -1,4 +1,4 @@
-import crypto from "crypto";
+import CryptoJS from "crypto-js";
 
 export function buildSparkAuthUrl(
   host: string,
@@ -8,13 +8,14 @@ export function buildSparkAuthUrl(
 ) {
   const date = new Date().toUTCString();
   const signatureOrigin = `host: ${host}\ndate: ${date}\nGET ${path} HTTP/1.1`;
-  const signature = crypto
-    .createHmac("sha256", apiSecret)
-    .update(signatureOrigin)
-    .digest("base64");
+  
+  // ✅ 修改1：使用 crypto-js 代替 Node.js 的 crypto
+  const signature = CryptoJS.HmacSHA256(signatureOrigin, apiSecret).toString(CryptoJS.enc.Base64);
 
   const authorizationOrigin = `api_key="${apiKey}", algorithm="hmac-sha256", headers="host date request-line", signature="${signature}"`;
-  const authorization = Buffer.from(authorizationOrigin).toString("base64");
+  
+  // ✅ 修改2：使用全平台通用的 btoa 代替 Node.js 的 Buffer
+  const authorization = btoa(authorizationOrigin);
 
   const params = new URLSearchParams({
     authorization,
@@ -84,6 +85,7 @@ export async function sparkAssistantChat(
     }, 55000);
 
     try {
+      // 原生自带的 WebSocket，在 Edge 环境和浏览器中直接可用，无需任何三方 ws 库
       ws = new WebSocket(url);
 
       ws.onopen = () => {
