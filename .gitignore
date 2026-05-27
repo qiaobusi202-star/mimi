@@ -34,3 +34,10 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+.vercel
+
+# Large files and backups
+资料/
+*.glb
+*.gltf
+*.bin
