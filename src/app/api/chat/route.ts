@@ -2,7 +2,10 @@ import { NextResponse } from "next/server";
 
 import { pickDemoReply } from "@/lib/ai-persona";
 import { sparkAssistantChat } from "@/lib/xfyun-spark";
+export const runtime = 'edge';
 
+// 你原本的代码，例如：
+// export async function POST(request: Request) { ... }
 type ChatMessage = { role: "user" | "assistant"; content: string };
 
 export async function POST(request: Request) {
