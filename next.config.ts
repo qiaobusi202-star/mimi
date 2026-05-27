@@ -3,6 +3,8 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   transpilePackages: ["three"],
   images: {
+    // 1. 解决 Cloudflare Pages 404 的核心配置
+    unoptimized: true, 
     remotePatterns: [
       {
         protocol: "https",
