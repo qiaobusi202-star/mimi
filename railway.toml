@@ -1,0 +1,20 @@
+# Railway 配置文件
+# Railway 支持 Next.js + WebSocket，有免费额度
+
+[build]
+builder = "nixpacks"
+buildCommand = "npm run build"
+
+[deploy]
+startCommand = "npm start"
+healthcheckPath = "/"
+healthcheckTimeout = 300
+restartPolicyType = "on_failure"
+restartPolicyMaxRetries = 3
+
+# 环境变量需要在 Railway 控制台配置：
+# XFYUN_API_KEY
+# XFYUN_API_SECRET
+# XFYUN_APP_ID
+# XFYUN_ASSISTANT_ID (可选)
+# XFYUN_HOST (可选)

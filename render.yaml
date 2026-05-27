@@ -1,0 +1,22 @@
+# Render 配置文件
+# Render 支持 Next.js + WebSocket，有免费额度
+
+services:
+  - type: web
+    name: zeng-daowei-portfolio
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm run build
+    startCommand: npm start
+    
+    envVars:
+      - key: NODE_VERSION
+        value: 18
+        
+      # 环境变量需要在 Render 控制台配置：
+      # XFYUN_API_KEY
+      # XFYUN_API_SECRET
+      # XFYUN_APP_ID
+      # XFYUN_ASSISTANT_ID (可选)
+      # XFYUN_HOST (可选)
